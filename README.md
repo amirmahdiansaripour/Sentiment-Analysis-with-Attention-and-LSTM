@@ -1,16 +1,16 @@
 # Sentiment Analysis with Attention Mechanism and LSTM
 
-In this project, we design a model for classifying the emotion inside a sentence. The model contains three sub-modules: 
+In this project, we design an attention-based model for classifying the emotion (sentiment) of a sentence. The model contains three sub-modules: 
 
 1. **Pre-attention Bidirectional LSTM** having Tx steps. Tx is the number of words each sentence has (either padded or truncated).
 
-2. **Self-attention calculator**, which is a simple neural network computing the attention weights between Pre-attention LSTM outputs.
+2. **Self-attention calculator**, which is a simple MLP (Multi-Layer Perceptron) computing the attention weights between Pre-attention LSTM outputs (word embeddings).
 
 3. **Post-attention LSTM** having Ty steps. Ty is the output's number of words or elements.
 
-The output of each Post-attention LSTM is passed through a softmax and the predicted word index is obtained.
+The output of each Post-attention LSTM is passed through a softmax and the predicted word index (in this case, the one-hot index of our predicted class) is obtained.
 
-Here is a schema of our model. The left image shows the entire model and the right one shows the self-attention calculator.
+Here is a schema of our model. The left image shows the entire model and the right one shows the attention block.
 
 ![img00](./images/design_0.JPG) | ![img01](./images/design_1.JPG) |
 | --- | --- |
@@ -19,7 +19,7 @@ In the above images:
 
 * $s^{\langle t-1 \rangle}$ is the output of the previous step's Post-attention LSTM, which is useful for computing step $t$ attentions ($\alpha^{\langle t \rangle} = \[ \alpha^{ \langle t , 1 \rangle}, \alpha^{ \langle t , 2 \rangle}, ... , \alpha^{{ \langle t , T_x \rangle}} \] $).  
 
-* $context^{\langle t \rangle}$ is the multiplication of word's $t$ attention with other words $t^{\prime}$, shown as $\alpha^{ \langle t , t^{\prime} \rangle}$, and other words embeddings $a^{ \langle t^{\prime} \rangle}$.
+* $context^{\langle t \rangle}$ is the multiplication of word's $t$ attention to other words $t^{\prime}$, shown as $\alpha^{ \langle t , t^{\prime} \rangle}$, and other words embeddings $a^{ \langle t^{\prime} \rangle}$.
 
 $$context^{\langle t \rangle} = \sum\limits_{t^{\prime}=1}^{T_x} \alpha^{ \langle t , t^{\prime} \rangle} a^{\langle t^{\prime} \rangle}$$
 
