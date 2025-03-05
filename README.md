@@ -1,6 +1,6 @@
 # Sentiment Analysis with Attention Mechanism and LSTM
 
-In this project, we design a model for classifying the emotion inside a sentence. The idea of this project is taken from **Coursera Sequence Models** course. The model contains three sub-modules: 
+In this project, we design a model for classifying the emotion inside a sentence. The model contains three sub-modules: 
 
 1. **Pre-attention Bidirectional LSTM** having Tx steps. Tx is the number of words each sentence has (either padded or truncated).
 
